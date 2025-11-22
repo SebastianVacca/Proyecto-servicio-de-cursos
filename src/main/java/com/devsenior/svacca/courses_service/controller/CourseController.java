@@ -12,6 +12,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
 
 import java.util.List;
 
@@ -48,31 +50,32 @@ public class CourseController {
     @ApiResponse(responseCode = "200", description = "Busqueda de curso por Id exitosa")
     @ApiResponse(responseCode = "500", description = "el curso no fue encontrado", content = @Content())
     @GetMapping(value = "/{id}", produces = { MediaType.APPLICATION_JSON_VALUE })
-    public Course getCourseById(@PathVariable Long id) {
+    public Course getCourseById(@PathVariable @Min(value = 1, message = "El Id debe ser mayor a cero") Long id) {
         return courseService.getOneById(id);
     }
 
     @GetMapping("/buscar")
-    public List<Course> getCourseContainsText(@RequestParam("nombre") String name) {
+    public List<Course> getCourseContainsText(@RequestParam(value = "nombre") String name) {
         return courseService.getAllThatContainsText(name);
     }
 
     @Operation(summary = "Crear un curso")
     @PostMapping
     public Course createCourse(
-            @RequestBody(description = "datos del nuevo curso", required = true, content = @Content(schema = @Schema(implementation = Course.class))) Course course) {
+        //linea para doumentar el swagger sobre la estructura que se espera
+            @RequestBody(description = "datos del nuevo curso", required = true, content = @Content(schema = @Schema(implementation = Course.class))) @org.springframework.web.bind.annotation.RequestBody @Valid Course course) {
         course = courseService.createCourse(course);
         return course;
     }
 
     @PutMapping("/{id}")
-    public Course updateCourse(@PathVariable Long id, @RequestBody Course course) {
-
+    public Course updateCourse(@PathVariable @Min(value = 1, message = "El Id debe ser mayor a cero") Long id,
+     @RequestBody(description = "Datos del curso a actualizar", required =  true, content = @Content(schema = @Schema(implementation = Course.class)))@org.springframework.web.bind.annotation.RequestBody @Valid Course course) {
         return courseService.updateCourse(id, course);
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
+    public void delete(@PathVariable @Min(value = 1, message = "El Id debe ser mayor a cero") Long id) {
         courseService.deleteCourse(id);
     }
 
