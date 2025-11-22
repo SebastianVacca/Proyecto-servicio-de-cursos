@@ -1,0 +1,50 @@
+### listar todos los cursos
+GET http://localhost:8080/api/cursos
+
+### consutlar por id
+GET http://localhost:8080/api/cursos/2
+
+###Crear un curso
+POST http://localhost:8080/api/cursos
+Content-Type: application/json
+
+{    
+    "name" : "Programación Básica en Java",
+    "code" : "JAVA101",
+    "description" : "Este curso aborda las bases del la programación desde un enfoque imperactivo",
+    "intialDate" : "2026-01-01",
+    "finallDate" : "2026-01-31",
+    "credits" : "4"
+}
+
+###Crear un curso
+POST http://localhost:8080/api/cursos
+Content-Type: application/json
+
+{    
+    "name" : "Programación Orientada a Objetos con Java",
+    "code" : "JAVA102",
+    "description" : "Este curso aborda los pilares de la programación orientada a objetos",
+    "intialDate" : "2026-02-01",
+    "finallDate" : "2026-02-28",
+    "credits" : "4"
+}
+
+###Actualizar un curso
+PUT http://localhost:8080/api/cursos/2
+Content-Type: application/json
+
+{    
+    "name" : "Programación Orientada a Objetos con Java",
+    "code" : "JAVA102",
+    "description" : "Este curso aborda los pilares de la programación orientada a objetos",
+    "intialDate" : "2026-02-01",
+    "finallDate" : "2026-02-28",
+    "credits" : "3"
+}
+
+###Eliminar un curso
+DELETE http://localhost:8080/api/cursos/2
+
+###Buscar los cursos que tienen un texto en especifico
+GET http://localhost:8080/api/cursos/buscar?nombre=java
