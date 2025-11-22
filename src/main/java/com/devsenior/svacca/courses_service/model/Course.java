@@ -2,16 +2,32 @@ package com.devsenior.svacca.courses_service.model;
 
 import java.time.LocalDate;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 // POJO - Plain Old Java Object 
 // JavaBean
 // DTO - Data Trnasfer Object
+@Schema(description = "Representa un curso académico")
 public class Course {
+    @Schema(description = "Identificador único generado automáticamente", example = "1")
     private Long id;
+
+    @Schema(description = "Nombre completo del curso", example = "Programación básica")
     private String name;
+
+    @Schema(description = "Código único del curso", example = "JAVA101")
     private String code;
+
+    @Schema(description = "Descripción breve del curso", example = "Curso que provee fundamentos básicos de la programación")
     private String description;
+
+    @Schema(description = "Fecha en la que incia el curso", example = "2025-01-01")
     private LocalDate intialDate;
+
+    @Schema(description = "Fecha en la que finaliza el curso", example = "2025-01-01")
     private LocalDate finallDate;
+
+    @Schema(description = "Cantidad de créditos que tiene el curso", example = "4")
     private Integer credits;
 
     public Course() {
